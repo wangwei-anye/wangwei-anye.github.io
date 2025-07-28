@@ -10,7 +10,36 @@
 
 </body>
   <script>
-    var a = 2;
+    var data = [];
+
+    // flag 
+    var upRate = 0;
+    var isUpRate = false;
+
+    // temp data
+    var _upNum = 0;
+    var _downNum = 0;
+    
+    for(let i = 0; i < data.length ; i ++){
+      if(data[i].shoupan > (data[i].kaipan * 1.01)){
+         _upNum++;
+      }
+      if(data[i].kaipan > (data[i].shoupan * 1.01)){
+         _downNum++;
+      }  
+
+    }
+
+
+    //analyse
+    upRate = _upNum / _downNum;
+    isUpRate = upRate > 1.6 ? true : false;
+
+    //result
+    if(isUpRate){
+      ...
+    }
+    
 
 
     
