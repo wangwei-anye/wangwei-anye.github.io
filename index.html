@@ -11,6 +11,7 @@
 </body>
   <script>
     var data = [];
+    var fenshiData = [];
 
     // flag 
     var upRate = 0;
@@ -24,6 +25,9 @@
 
     var earthquake = 0;
     var isEarthquake = 0;
+
+    var fenshiUp = 0;
+    var isFenshiUp = false;
 
 
     // temp data
@@ -49,6 +53,7 @@
 
     }
     _avgShoupan = _totalShoupan / _dataLen;
+    fenshiUp = getFenshi(fenshiData);
 
 
     //analyse
@@ -56,6 +61,7 @@
     isUpRate = upRate > 1.6 ? true : false;
     isSlope = slope > 1.1 ? true : false;
     isGentle = gentle > 1.1 ? true : false;
+    isFenshiUp = fenshiUp > 1.77 ? true : false;
 
     //result
     if(isUpRate){
@@ -71,6 +77,36 @@
         totalVariance +=  zf * zf;
       }
       return totalVariance / _dataLen;
+    }
+
+    function getFenshi(data){
+      //30 start
+      //last five avg   than 0.77  is up,below 0.77 is dowm, up / dowm > 1.77 is good
+      var total = 0;
+      var avg = 0;
+      var upNum = 0;
+      var downNum = 0;
+      
+      for(let i = 0; i < data.length ; i ++){
+        if(i > 0){
+          if(data[i].price - avg > 0.77){
+              upNum ++;
+          }
+          if(data[i].price - avg < -0.77){
+              downNum ++;
+          }
+        }
+          
+        if(i >= 10){
+          total += data[i].price;
+          total -= data[i - 10].price;
+          avg = total / 10;
+        }else{
+          total += data[i].price;
+          avg = total / (i + 1);
+        }
+      }
+      return upNum / downNum;
     }
     
   </script>
