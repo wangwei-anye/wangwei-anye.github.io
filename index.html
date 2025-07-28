@@ -21,6 +21,9 @@
     var slope = 0;
     var isSlope = false;
 
+    var cjl = 0;
+    var isCjl = false;
+
     var maxPrice = 0;
     var isMaxPrice = false;
 
@@ -64,6 +67,8 @@
 
     maxPrice = (_endNode.shoupan - _maxShoupan) / _maxShoupan;
 
+    cjl = getCjl(fenshiData);
+
 
     //analyse
     upRate = _upNum / _downNum;
@@ -71,11 +76,12 @@
     isSlope = slope > 1.1 ? true : false;
     isGentle = gentle > 1.1 ? true : false;
     isMaxPrice = maxPrice > 1.1 ? true : false;
+    isCjl = cjl > 0.6 ? true : false;
    
     isLikeK = likeK > 3.77 ? true : false;
     isLikeV = likeV < 4 ? true : false;
     //result
-    if(isSlope && isUpRate  && isLikeK  && isGentle){
+    if(isSlope && isUpRate  && isLikeK  && isGentle && isCjl){
        var fenshiData = [];
        var fenshiUp = getFenshi(fenshiData);
        var isFenshiUp = fenshiUp > 1.77 ? true : false;
@@ -111,6 +117,40 @@
           avg = total / 10;
         }else{
           total += data[i].price;
+          avg = total / (i + 1);
+        }
+      }
+      if(upNum + downNum == 0){
+        return 0;
+      }
+      return upNum / (upNum + downNum);
+    }
+
+
+    function getCjl(data){
+      //30 start
+      //last five avg   than 0.77  is up,below 0.77 is dowm, up / dowm > 1.77 is good
+      var total = 0;
+      var avg = 0;
+      var upNum = 0;
+      var downNum = 0;
+      
+      for(let i = 0; i < data.length ; i ++){
+        if(i > 0){
+          if((data[i].]. - avg) / avg > 0.05){
+              upNum ++;
+          }
+          if((data[i].]. - avg) / avg < -0.05){
+              downNum ++;
+          }
+        }
+          
+        if(i >= 3){
+          total += data[i].cjl;
+          total -= data[i - 10].].;
+          avg = total / 3;
+        }else{
+          total += data[i].].;
           avg = total / (i + 1);
         }
       }
