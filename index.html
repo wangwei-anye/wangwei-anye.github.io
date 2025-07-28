@@ -21,6 +21,9 @@
     var slope = 0;
     var isSlope = false;
 
+    var maxPrice = 0;
+    var isMaxPrice = false;
+
     var likeK = 0;
     var isLikeK = false;
 
@@ -36,6 +39,7 @@
     var _endNode = data[data.length - 1];
     var _totalShoupan = 0;
     var _avgShoupan = 0;
+    var _maxShoupan = 0;
 
     slope = _endNode.shoupan / _startNode.shoupan;
     
@@ -47,6 +51,9 @@
       if(data[i].kaipan > (data[i].shoupan * 1.01)){
          _downNum++;
       }  
+      if(i < data.length - 1){
+        _maxShoupan = Math.max(_maxShoupan , data[i].shoupan);
+      }
       _totalShoupan += data[i].shoupan;
 
     }
@@ -55,12 +62,15 @@
     likeK = getLikeK(dataLike,data);
     likeV = getLikeV(dataLike,data);
 
+    maxPrice = (_endNode.shoupan - _maxShoupan) / _maxShoupan;
+
 
     //analyse
     upRate = _upNum / _downNum;
     isUpRate = upRate > 1.6 ? true : false;
     isSlope = slope > 1.1 ? true : false;
     isGentle = gentle > 1.1 ? true : false;
+    isMaxPrice = maxPrice > 1.1 ? true : false;
    
     isLikeK = likeK > 3.77 ? true : false;
     isLikeV = likeV < 4 ? true : false;
