@@ -12,7 +12,7 @@
   <script>
     var dataLikeK = [];
     var data = [];
-    var fenshiData = [];
+   
 
     // flag 
     var upRate = 0;
@@ -26,9 +26,6 @@
 
     var earthquake = 0;
     var isEarthquake = 0;
-
-    var fenshiUp = 0;
-    var isFenshiUp = false;
 
     var likeK = 0;
     var isLikeK = false;
@@ -57,7 +54,7 @@
 
     }
     _avgShoupan = _totalShoupan / _dataLen;
-    fenshiUp = getFenshi(fenshiData);
+   
     likeK = getLikeK(dataLikeK,data);
 
 
@@ -66,12 +63,19 @@
     isUpRate = upRate > 1.6 ? true : false;
     isSlope = slope > 1.1 ? true : false;
     isGentle = gentle > 1.1 ? true : false;
-    isFenshiUp = fenshiUp > 1.77 ? true : false;
+   
     isLikeK = likeK > 3.77 ? true : false;
     //result
-    if(isUpRate){
-      ...
+    if(isSlope && isUpRate  && isLikeK  && isGentle){
+       var fenshiData = [];
+       var fenshiUp = getFenshi(fenshiData);
+       var isFenshiUp = fenshiUp > 1.77 ? true : false;
+       if(isFenshiUp){
+        .........
+       }
     }
+
+    
 
     function getVariance(slope , data , _dataLen){
       let startShoupan = data[0].shoupan;
