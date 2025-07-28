@@ -90,10 +90,10 @@
       
       for(let i = 0; i < data.length ; i ++){
         if(i > 0){
-          if(data[i].price - avg > 0.77){
+          if(data[i].price - avg > 0.5){
               upNum ++;
           }
-          if(data[i].price - avg < -0.77){
+          if(data[i].price - avg < -0.5){
               downNum ++;
           }
         }
@@ -107,7 +107,7 @@
           avg = total / (i + 1);
         }
       }
-      return upNum / downNum;
+      return (upNum - downNum) / (upNum + downNum);
     }
 
     function getLikeK(likeArr , myArr){
@@ -125,13 +125,13 @@
                          }
                    }
               }
-              if (up / down > 3.77) {
+              if ((up - down) / (up + down) > 0.6) {
                  totalUp++
               } else {
                  totalDown++
               }
         }
-      return totalUp/totalDown;
+      return (totalUp - totalDown) / (totalUp + totalDown);
     }
 
     function getLikeV(likeArr , myArr){
