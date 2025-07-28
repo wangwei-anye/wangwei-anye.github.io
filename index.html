@@ -10,7 +10,7 @@
 
 </body>
   <script>
-    var dataLikeK = [];
+    var dataLike = [];
     var data = [];
    
 
@@ -21,14 +21,14 @@
     var slope = 0;
     var isSlope = false;
 
-    var gentle = 0;
-    var isGentle = 0;
-
     var earthquake = 0;
     var isEarthquake = 0;
 
     var likeK = 0;
     var isLikeK = false;
+
+    var likeV = 0;
+    var isLikeV = 0;
 
 
     // temp data
@@ -41,7 +41,7 @@
     var _avgShoupan = 0;
 
     slope = _endNode.shoupan / _startNode.shoupan;
-    gentle = getVariance(slope , data , _dataLen);
+    
 
     for(let i = 0; i < data.length ; i ++){
       if(data[i].shoupan > (data[i].kaipan * 1.01)){
@@ -55,7 +55,8 @@
     }
     _avgShoupan = _totalShoupan / _dataLen;
    
-    likeK = getLikeK(dataLikeK,data);
+    likeK = getLikeK(dataLike,data);
+    likeV = getLikeV(dataLike,data);
 
 
     //analyse
@@ -65,6 +66,7 @@
     isGentle = gentle > 1.1 ? true : false;
    
     isLikeK = likeK > 3.77 ? true : false;
+    isLikeV = likeV < 4 ? true : false;
     //result
     if(isSlope && isUpRate  && isLikeK  && isGentle){
        var fenshiData = [];
@@ -77,16 +79,6 @@
 
     
 
-    function getVariance(slope , data , _dataLen){
-      let startShoupan = data[0].shoupan;
-      let totalVariance = 0;
-      for(let i = 0; i < data.length ; i ++){
-        let goodShoupan = startShoupan * (slope * (i / (_dataLen - 1))
-        let zf = (data[i].shoupan - goodShoupan) / goodShoupan;
-        totalVariance +=  zf * zf;
-      }
-      return totalVariance / _dataLen;
-    }
 
     function getFenshi(data){
       //30 start
@@ -140,6 +132,15 @@
               }
         }
       return totalUp/totalDown;
+    }
+
+    function getLikeV(likeArr , myArr){
+        var total = 0;
+        for (let i = 0; i < myArr.length; i++) {
+              total += (myArr[i] - likeArr[i]) * (myArr[i] - likeArr[i]);   
+        }
+        return Math.sqrt(total);
+    
     }
   </script>
 </html>
