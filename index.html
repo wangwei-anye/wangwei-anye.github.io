@@ -74,14 +74,13 @@
     upRate = _upNum / _downNum;
     isUpRate = upRate > 1.6 ? true : false;
     isSlope = slope > 1.1 ? true : false;
-    isGentle = gentle > 1.1 ? true : false;
     isMaxPrice = maxPrice > 1.1 ? true : false;
     isCjl = cjl > 0.6 ? true : false;
    
     isLikeK = likeK > 3.77 ? true : false;
     isLikeV = likeV < 4 ? true : false;
     //result
-    if(isSlope && isUpRate  && isLikeK  && isGentle && isCjl){
+    if(isSlope && isUpRate  && isLikeK  && isCjl){
        var fenshiData = [];
        var fenshiUp = getFenshi(fenshiData);
        var isFenshiUp = fenshiUp > 1.77 ? true : false;
