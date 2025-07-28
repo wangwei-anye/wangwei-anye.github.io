@@ -107,7 +107,7 @@
       if(upNum + downNum == 0){
         return 0;
       }
-      return (upNum - downNum) / (upNum + downNum);
+      return upNum / (upNum + downNum);
     }
 
     function getLikeK(likeArr , myArr){
@@ -126,7 +126,7 @@
                    }
               }
               if((up + down > 0){
-                  if ((up - down) / (up + down) > 0.6) {
+                  if (up / (up + down) > 0.6) {
                       totalUp++
                   } else {
                       totalDown++
@@ -137,7 +137,7 @@
       if(totalUp + totalDown == 0){
          return 0;
       }
-      return (totalUp - totalDown) / (totalUp + totalDown);
+      return totalUp / (totalUp + totalDown);
     }
 
     function getLikeV(likeArr , myArr){
