@@ -16,10 +16,24 @@
     var upRate = 0;
     var isUpRate = false;
 
+    var slope = 0;
+    var isSlope = false;
+
+    var gentle = 0;
+    var isGentle = 0;
+
+
     // temp data
     var _upNum = 0;
     var _downNum = 0;
-    
+    var _dataLen = data.length;
+    var _startNode = data[0];
+    var _endNode = data[data.length - 1];
+    var _totalShoupan = 0;
+    var _avgShoupan = 0;
+
+    slope = _endNode.shoupan / _startNode.shoupan;
+
     for(let i = 0; i < data.length ; i ++){
       if(data[i].shoupan > (data[i].kaipan * 1.01)){
          _upNum++;
@@ -27,19 +41,26 @@
       if(data[i].kaipan > (data[i].shoupan * 1.01)){
          _downNum++;
       }  
+      _totalShoupan += data[i].shoupan;
 
     }
+    _avgShoupan = _totalShoupan / _dataLen;
 
 
     //analyse
     upRate = _upNum / _downNum;
     isUpRate = upRate > 1.6 ? true : false;
+    isSlope = slope > 1.1 ? true : false;
 
     //result
     if(isUpRate){
       ...
     }
-    
+
+    function getVariance(avgShoupan ,slope , data){
+variance
+
+    }
 
 
     
