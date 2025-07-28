@@ -10,6 +10,7 @@
 
 </body>
   <script>
+    var dataLikeK = [];
     var data = [];
     var fenshiData = [];
 
@@ -28,6 +29,9 @@
 
     var fenshiUp = 0;
     var isFenshiUp = false;
+
+    var likeK = 0;
+    var isLikeK = false;
 
 
     // temp data
@@ -54,6 +58,7 @@
     }
     _avgShoupan = _totalShoupan / _dataLen;
     fenshiUp = getFenshi(fenshiData);
+    likeK = getLikeK(dataLikeK,data);
 
 
     //analyse
@@ -62,7 +67,7 @@
     isSlope = slope > 1.1 ? true : false;
     isGentle = gentle > 1.1 ? true : false;
     isFenshiUp = fenshiUp > 1.77 ? true : false;
-
+    isLikeK = likeK > 3.77 ? true : false;
     //result
     if(isUpRate){
       ...
@@ -108,6 +113,29 @@
       }
       return upNum / downNum;
     }
-    
+
+    function getLikeK(likeArr , myArr){
+        var totalUp = 0;
+        var totalDown = 0;
+        for (let i = 0; i < myArr.length; i++) {
+              var up = 0;
+              var down = 0;
+              for (let j = 0; j < myArr.length; j++) {
+                   if (i != j) {
+                         if ((myArr[j] - myArr[i]) * (likeArr[j] - likeArr[j] - likeArr[i]) > 0) {
+                               up++;
+                         } else {
+                               down++;
+                         }
+                   }
+              }
+              if (up / down > 3.77) {
+                 totalUp++
+              } else {
+                 totalDown++
+              }
+        }
+      return totalUp/totalDown;
+    }
   </script>
 </html>
