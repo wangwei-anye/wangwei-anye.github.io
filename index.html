@@ -21,9 +21,6 @@
     var slope = 0;
     var isSlope = false;
 
-    var earthquake = 0;
-    var isEarthquake = 0;
-
     var likeK = 0;
     var isLikeK = false;
 
@@ -107,6 +104,9 @@
           avg = total / (i + 1);
         }
       }
+      if(upNum + downNum == 0){
+        return 0;
+      }
       return (upNum - downNum) / (upNum + downNum);
     }
 
@@ -125,12 +125,18 @@
                          }
                    }
               }
-              if ((up - down) / (up + down) > 0.6) {
-                 totalUp++
-              } else {
-                 totalDown++
+              if((up + down > 0){
+                  if ((up - down) / (up + down) > 0.6) {
+                      totalUp++
+                  } else {
+                      totalDown++
+                  }
               }
+             
         }
+      if(totalUp + totalDown == 0){
+         return 0;
+      }
       return (totalUp - totalDown) / (totalUp + totalDown);
     }
 
